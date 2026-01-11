@@ -36,18 +36,4 @@ You can drag task cards between columns.
 - **JavaScript**
 - Drag & Drop API / Drag-and-drop library (if used)
 
----
 
-## 📸 Screenshots
-
-> Add screenshots here (recommended)
-
-Example:
-
-```txt
-📌 To add screenshots:
-1. Create a folder named /screenshots
-2. Add images
-3. Use below format:
-
-![Kanban Board](screenshots/board.png)
