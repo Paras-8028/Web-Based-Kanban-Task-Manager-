@@ -1,0 +1,204 @@
+.card {
+  position: relative;
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px 14px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+  border: 1px solid #e6e9ee;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  cursor: grab; /* Indicate draggability */
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+.card.cdk-drag-dragging {
+  transition: none; /* Disable hover transitions during drag */
+}
+
+/* Drag preview */
+.cdk-drag-preview {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  border: 1px solid #e6e9ee;
+  transform: scale(1.02); /* Slightly larger for emphasis */
+  z-index: 1000;
+  cursor: grabbing;
+}
+
+/* Drag placeholder */
+.cdk-drag-placeholder {
+  background: #f6f8fb;
+  border-radius: 12px;
+  border: 1px dashed #e6e9ee;
+  opacity: 0.4;
+  transition: transform 0.2s ease;
+}
+
+/* Ensure smooth animation during drag */
+.cdk-drag-animating {
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smooth easing */
+}
+
+/* Title & description */
+.title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #2b2d42;
+  margin: 0;
+}
+.desc {
+  margin: 0;
+  color: #2b2d42;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.time {
+  color: #8d99ae;
+  font-size: 12px;
+}
+
+/* Edit icon (top-right) */
+.edit-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: transparent;
+  border: none;
+  color: #3a506b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  padding: 4px;
+  border-radius: 6px;
+  transition: color 0.2s ease;
+}
+.edit-icon:hover {
+  color: #1d3557;
+}
+.edit-text {
+  display: none;
+  font-size: 12px;
+}
+.edit-icon:hover .edit-text {
+  display: inline;
+}
+
+/* Delete icon (bottom-right) */
+.delete-icon {
+  position: absolute;
+  bottom: 6px;
+  right: 8px;
+  background: transparent;
+  border: none;
+  color: #ef233c;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  padding: 4px;
+  border-radius: 6px;
+  transition: color 0.2s ease;
+}
+.delete-icon:hover {
+  color: #d90429;
+}
+.delete-text {
+  display: none;
+  font-size: 12px;
+}
+.delete-icon:hover .delete-text {
+  display: inline;
+}
+
+/* Bottom actions (priority + status) */
+.actions-bottom {
+  display: flex;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-top: auto;
+  padding-bottom: 6px;
+}
+
+/* Small action buttons */
+.small-btn {
+  background: #f6f8fb;
+  border: 1px solid #e6e9ee;
+  border-radius: 8px;
+  padding: 4px 8px;
+  font-size: 11px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.small-btn:hover {
+  background: #edf2f7;
+}
+
+/* Priority badge */
+.badge {
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-weight: 600;
+  color: #fff;
+}
+.badge.low { background: #8d99ae; }
+.badge.medium { background: #3a506b; }
+.badge.high { background: #ef233c; }
+
+/* Status text */
+.status-text {
+  font-size: 11px;
+  max-width: 70px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Dropdown menu */
+.dropdown { position: relative; }
+.menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  list-style: none;
+  padding: 6px 0;
+  margin: 0;
+  min-width: 120px;
+  z-index: 2000;
+  opacity: 0;
+  transform: translateY(6px) scale(0.96);
+  pointer-events: none;
+  transition: all 160ms ease;
+}
+.menu.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+.menu li {
+  padding: 6px 12px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.15s ease;
+}
+.menu li:hover { background: #f8fbff; }
+
+/* Menu alignment */
+.menu.align-left { right: 0; }
+.menu.align-right { left: 0; }

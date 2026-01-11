@@ -1,0 +1,78 @@
+<app-navbar
+  [allTasks]="taskSvc.tasksValue"
+  (search)="onSearch($event)"
+  (newTask)="startCreate()"
+  (addCol)="addColumn()"
+></app-navbar>
+
+<main class="board">
+  <!-- Columns row: this is the container drop list for column reordering -->
+  <div
+    class="columns-row"
+    cdkDropList
+    [cdkDropListData]="taskSvc.columnsValue"
+    (cdkDropListDropped)="dropColumn($event)"
+    cdkDropListOrientation="horizontal"
+  >
+    <section
+      *ngFor="let col of taskSvc.columnsValue; let i = index"
+      class="column"
+      cdkDrag
+      cdkDragBoundary=".board"
+      [attr.data-col-index]="i"
+      id="{{ col.id }}"
+    >
+      <div class="col-header">
+        <div class="col-title">
+          <h3>{{ col.title }}</h3>
+        </div>
+
+        <div class="col-actions">
+          <!-- drag handle (appears on hover) -->
+          <button class="drag-handle" cdkDragHandle title="Move column">
+            <mat-icon>drag_indicator</mat-icon>
+          </button>
+
+          <button
+            *ngIf="!['todo','in-progress','done'].includes(col.id)"
+            class="delete-col"
+            (click)="deleteColumn(col.id)"
+            title="Delete column"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- Task list: this is a cdkDropList for tasks, connected to other task lists -->
+      <div
+        class="stack"
+        cdkDropList
+        id="list-{{ col.id }}"
+        [cdkDropListData]="tasksByStatus(col.id)"
+        [cdkDropListConnectedTo]="connectedListIds"
+        (cdkDropListDropped)="drop($event, col.id)"
+      >
+        <app-task-card
+          *ngFor="let t of tasksByStatus(col.id)"
+          [task]="t"
+          [ngClass]="{ highlight: matchesSearch(t) }"
+          (edit)="startEdit(t)"
+          (remove)="confirmDelete(t.id)"
+        ></app-task-card>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- Modal -->
+<div class="modal" *ngIf="showForm">
+  <div class="modal-content">
+    <app-task-form
+      [mode]="editing ? 'edit' : 'create'"
+      [initial]="editing"
+      (save)="saveForm($event)"
+      (cancel)="cancelForm()"
+    ></app-task-form>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<form (ngSubmit)="onSubmit()" class="form" (click)="$event.stopPropagation()">
+  <div class="row">
+    <label for="title">Title <span class="req">*</span></label>
+    <input id="title" [value]="title()" (input)="title.set($any($event.target).value)" name="title" required />
+  </div>
+
+  <div class="row">
+    <label for="description">Description</label>
+    <textarea id="description" [value]="description()" (input)="description.set($any($event.target).value)" name="description"></textarea>
+  </div>
+
+  <div class="row two">
+    <div>
+      <label for="priority">Priority</label>
+      <select id="priority" [value]="priority()" (change)="priority.set($any($event.target).value)" name="priority">
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+      </select>
+    </div>
+    <div>
+      <label for="status">Status</label>
+      <select id="status" [value]="status()" (change)="status.set($any($event.target).value)" name="status">
+        <option *ngFor="let col of columnsList()" [value]="col.id">{{ col.title }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button type="submit"><i data-lucide="check-circle"></i> {{ mode === 'create' ? 'Add Task' : 'Save Changes' }}</button>
+    <button type="button" class="ghost" (click)="cancel.emit()"><i data-lucide="x-circle"></i> Cancel</button>
+  </div>
+</form>

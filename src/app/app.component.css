@@ -1,0 +1,87 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #EDF2F4;
+  color: #2B2D42;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+}
+
+/* Board */
+.board {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+  padding: 18px;
+  overflow-x: auto;
+}
+
+/* Column */
+.column {
+  background: #fff;
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.column:hover { transform: translateY(-4px); box-shadow: 0 8px 22px rgba(0,0,0,0.12); }
+
+.col-header { display:flex; justify-content:space-between; align-items:center; gap: 8px; margin-bottom: 6px; }
+.delete-col { background: transparent; border: none; color: #D90429; font-size: 16px; cursor: pointer; }
+.delete-col:hover { color: #EF233C; }
+
+/* Modal Popup */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.modal-content {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  width: min(540px, 94%);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  animation: popup 0.26s ease;
+}
+
+/* animations */
+@keyframes popup { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
+
+/* Highlight for search-match */
+.highlight {
+  border: 2px solid #3B82F6 !important;
+  box-shadow: 0 0 18px rgba(59,130,246,0.6);
+  transform: scale(1.02);
+  z-index: 10;
+}
+
+/* small task fade */
+.task-card { animation: fadeInCard 0.35s ease; }
+@keyframes fadeInCard { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6); /* darker */
+  backdrop-filter: blur(4px);  /* ✅ blur background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+  z-index: 2000; /* ✅ above everything */
+}
+
+body.modal-open {
+  overflow: hidden; /* ✅ stop scrolling */
+}

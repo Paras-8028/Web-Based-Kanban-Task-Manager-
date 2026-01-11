@@ -1,0 +1,26 @@
+/* Fullscreen Reset */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background: #EDF2F4;
+  font-family: 'Segoe UI', sans-serif;
+  color: #2B2D42;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  /* Remove outer page padding (you requested full width) */
+  padding: 0;
+}
+
+/* ✅ Snackbar classes */
+.success-snack { background: #2E7D32 !important; color: white !important; }  /* green */
+.info-snack    { background: #1565C0 !important; color: white !important; } /* blue */
+.warning-snack { background: #D84315 !important; color: white !important; } /* orange */
+.error-snack   { background: #C62828 !important; color: white !important; } /* red */

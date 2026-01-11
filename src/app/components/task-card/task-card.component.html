@@ -1,0 +1,90 @@
+<div class="card" cdkDrag [cdkDragData]="task" (cdkDragStarted)="dragStarted($event)" (cdkDragReleased)="dragReleased()">
+  <!-- Top-right Edit -->
+  <button
+    class="edit-icon"
+    (click)="edit.emit(); $event.stopPropagation()"
+    title="Edit"
+  >
+    <i data-lucide="edit-3"></i>
+    <span class="edit-text">Edit</span>
+  </button>
+
+  <!-- Main content -->
+  <div class="content">
+    <div class="main">
+      <h4 class="title">{{ task.title }}</h4>
+      <p class="desc" *ngIf="task.description">{{ task.description }}</p>
+      <small class="time">Updated: {{ task.updatedAt | date: 'short' }}</small>
+    </div>
+  </div>
+
+  <!-- Priority & Status actions -->
+  <div class="actions-bottom">
+    <!-- Priority -->
+    <div class="dropdown priority" (click)="$event.stopPropagation()">
+      <button class="small-btn" (click)="togglePriorityMenu($event)">
+        <span
+          class="badge"
+          [class.low]="task.priority === 'low'"
+          [class.medium]="task.priority === 'medium'"
+          [class.high]="task.priority === 'high'"
+        >
+          {{ task.priority | titlecase }}
+        </span>
+        <i data-lucide="chevron-down"></i>
+      </button>
+      <ul
+        class="menu"
+        [class.show]="menuOpenPriority"
+        [ngClass]="{
+          'align-left': menuAlignPriority === 'left',
+          'align-right': menuAlignPriority === 'right'
+        }"
+      >
+        <li (click)="changePriority('low', $event)">
+          <i data-lucide="arrow-down"></i> Low
+        </li>
+        <li (click)="changePriority('medium', $event)">
+          <i data-lucide="minus"></i> Medium
+        </li>
+        <li (click)="changePriority('high', $event)">
+          <i data-lucide="arrow-up"></i> High
+        </li>
+      </ul>
+    </div>
+
+    <!-- Status -->
+    <div class="dropdown status" (click)="$event.stopPropagation()">
+      <button class="small-btn" (click)="toggleStatusMenu($event)">
+        <i data-lucide="list-checks"></i>
+        <span class="status-text">{{ getColumnTitle(task.status) }}</span>
+        <i data-lucide="chevron-down"></i>
+      </button>
+      <ul
+        class="menu"
+        [class.show]="menuOpenStatus"
+        [ngClass]="{
+          'align-left': menuAlignStatus === 'left',
+          'align-right': menuAlignStatus === 'right'
+        }"
+      >
+        <li
+          *ngFor="let col of taskSvc.columnsValue"
+          (click)="changeStatus(col.id, $event)"
+        >
+          <i data-lucide="folder"></i> {{ col.title }}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Bottom-right Delete -->
+  <button
+    class="delete-icon"
+    (click)="remove.emit(); $event.stopPropagation()"
+    title="Delete"
+  >
+    <i data-lucide="trash-2"></i>
+    <span class="delete-text">Delete</span>
+  </button>
+</div>

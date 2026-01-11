@@ -1,0 +1,327 @@
+/* Auth Wrapper */
+.auth-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: auto;
+  font-family: "Lato", Arial, sans-serif;
+  background: linear-gradient(135deg, rgba(237, 242, 247, 0.8), rgba(223, 231, 243, 0.8));
+}
+
+/* Background Image (Local JPG) */
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+/* Auth Card */
+.auth-card {
+  width: 880px;
+  display: flex;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(14px);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  animation: fadeUp 0.6s ease;
+  transition: transform 0.6s ease;
+  position: relative;
+  z-index: 1;
+}
+.auth-card.signup {
+  transform: translateX(-50px);
+}
+
+/* Side Panel */
+.side-panel {
+  flex: 1;
+  background: linear-gradient(135deg, #2b2d42, #3b3e5a);
+  color: #fff;
+  padding: 50px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.side-panel h2 {
+  font-size: 28px;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+.side-panel p {
+  margin-bottom: 20px;
+  font-size: 15px;
+  opacity: 0.9;
+}
+
+/* Form Area */
+.form-area {
+  flex: 1;
+  padding: 50px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.form-area h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #2b2d42;
+}
+
+/* Form Group */
+.form-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #2b2d42;
+}
+
+/* Label Row for Switch */
+.label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+/* Switch Container */
+.switch-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Switch Label */
+.switch-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+/* Toggle Switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 32px;
+  height: 16px;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .3s;
+  border-radius: 16px;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 12px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: .3s;
+  border-radius: 50%;
+}
+input:checked + .slider {
+  background-color: #ef233c;
+}
+input:checked + .slider:before {
+  transform: translateX(16px);
+}
+
+/* Input Styles */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(219, 224, 234, 0.8);
+  background: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+  color: #2b2d42;
+  box-sizing: border-box;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+  height: 40px; /* Explicit height for alignment */
+}
+input:focus {
+  outline: none;
+  border-color: #ef233c;
+  box-shadow: 0 0 6px rgba(239, 35, 60, 0.3);
+}
+
+/* Password Input Row */
+.input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.input-row input {
+  flex: 1;
+}
+
+/* Password Toggle Button */
+.toggle-pass {
+  width: 44px;
+  height: 40px;
+  border-radius: 20px; /* Capsule/pill shape */
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(219, 224, 234, 0.8);
+  cursor: pointer;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+.toggle-pass mat-icon {
+  font-size: 20px; /* Slightly larger for full visibility */
+  line-height: 1;
+  width: 20px;
+  height: 20px;
+}
+.toggle-pass:hover {
+  background: #ef233c;
+  color: #fff;
+  border-color: #ef233c;
+  transform: scale(1.05);
+}
+.toggle-pass:active {
+  transform: scale(0.95);
+}
+
+/* Buttons */
+button {
+  width: 100%;
+  padding: 12px;
+  background: #ef233c;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 15px;
+  margin-top: 8px;
+  transition: background 0.25s ease, transform 0.15s ease;
+}
+button:hover {
+  background: #d90429;
+  transform: translateY(-2px);
+}
+button[disabled] {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Outline + Guest Buttons */
+.btn-outline {
+  background: transparent;
+  border: 2px solid #fff;
+  padding: 10px 24px;
+  border-radius: 30px;
+  color: #fff;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+.btn-outline:hover {
+  background: #fff;
+  color: #2b2d42;
+}
+.btn-guest {
+  margin-top: 20px;
+  background: #ef233c; /* 🔴 changed from blue */
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+.btn-guest:hover {
+  background: #d90429;
+}
+
+/* Spinner */
+.spinner {
+  border: 3px solid #fff;
+  border-top: 3px solid transparent;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Error Message */
+.error {
+  color: #dc3545;
+  margin-top: 12px;
+  font-size: 13px;
+  text-align: center;
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .auth-wrapper {
+    background: linear-gradient(135deg, rgba(237, 242, 247, 0.8), rgba(223, 231, 243, 0.8));
+  }
+  .background-image {
+    display: block; /* Ensure visible on mobile, was none before */
+  }
+  .auth-card {
+    flex-direction: column;
+    width: 90%;
+    transform: none !important;
+  }
+  .side-panel { padding: 30px 20px; }
+  .form-area { padding: 30px 20px; }
+}
+
+/* ========== Smooth Fade Between Username/Email ========== */
+.fade-field {
+  opacity: 1;
+  max-height: 70px;
+  transition: opacity 0.3s ease, max-height 0.3s ease;
+}
+.fade-field.ng-leave,
+.fade-field.ng-hide {
+  opacity: 0;
+  max-height: 0;
+}

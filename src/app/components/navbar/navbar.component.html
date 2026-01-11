@@ -1,0 +1,77 @@
+<nav class="navbar" role="navigation" aria-label="Main navbar">
+  <!-- Left: Logo -->
+  <div class="left">
+    <i data-lucide="zap" class="logo-icon" aria-hidden="true"></i>
+    <div class="logo-text">TaskManager</div>
+  </div>
+
+  <!-- Center: Search -->
+  <div class="center">
+    <div class="search-container" [class.open]="showDropdown">
+      <div class="search-box" role="search">
+        <i data-lucide="search" aria-hidden="true"></i>
+        <input
+          id="task-search"
+          type="text"
+          placeholder="Search tasks..."
+          [(ngModel)]="query"
+          (input)="onInput()"
+          (focus)="onInput()"
+          (keydown.escape)="showDropdown = false"
+          aria-label="Search tasks"
+          autocomplete="off"
+        />
+      </div>
+
+      <ul class="autocomplete" *ngIf="showDropdown" role="listbox" aria-label="Search suggestions">
+        <li *ngFor="let s of suggestions" (click)="selectSuggestion(s)" role="option">
+          <i data-lucide="folder" aria-hidden="true"></i>
+          <div class="item">
+            <div class="title">{{ s.title }}</div>
+            <div class="meta">{{ s.priority | titlecase }} • {{ s.status | titlecase }}</div>
+          </div>
+        </li>
+        <li *ngIf="suggestions.length === 0" class="empty">No matches</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Right: Actions & Account -->
+  <div class="actions">
+    <button class="btn primary" (click)="newTask.emit()" title="New task">
+      <i data-lucide="plus" aria-hidden="true"></i>
+      <span class="btn-label">Task</span>
+    </button>
+
+    <button class="btn secondary" (click)="addCol.emit()" title="Add column">
+      <i data-lucide="columns-3" aria-hidden="true"></i>
+      <span class="btn-label">Column</span>
+    </button>
+
+    <!-- Account with icon + username -->
+    <div class="account" (click)="$event.stopPropagation()">
+      <button
+        class="user-btn"
+        title="Account"
+        (click)="toggleAccountMenu($event)"
+        aria-haspopup="true"
+        [attr.aria-expanded]="accountMenuOpen"
+      >
+        <i data-lucide="user" aria-hidden="true"></i>
+        <span class="username" *ngIf="auth.user$ | async as user">{{ user }}</span>
+      </button>
+
+      <ul class="account-menu" *ngIf="accountMenuOpen" role="menu" aria-label="Account menu">
+        <li class="account-user" role="menuitem">
+          <i data-lucide="user" aria-hidden="true"></i>
+          <span>{{ auth.user$ | async }}</span>
+        </li>
+        <li role="menuitem" (click)="logout()">
+          <i data-lucide="log-out" aria-hidden="true"></i>
+          <span>Logout</span>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</nav>

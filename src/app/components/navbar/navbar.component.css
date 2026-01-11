@@ -1,0 +1,215 @@
+/* Navbar layout with absolute-centered search */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: linear-gradient(90deg, #2b2d42, #3b3e5a);
+  color: #edf2f4;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  position: sticky;
+  top: 0;
+  z-index: 1200;
+  position: relative;
+}
+
+/* Left (logo + user pill) */
+.left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo-icon { width: 22px; height: 22px; color: #ef233c; }
+.logo-text { font-weight: 700; font-size: 18px; }
+.user-pill {
+  background: rgba(239, 35, 60, 0.15);
+  color: #ef233c;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Center: absolute search bar */
+.center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.search-container {
+  width: min(480px, 50vw);
+  max-width: 560px;
+  position: relative;
+}
+.search-box {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #edf2f4;
+  color: #2b2d42;
+  padding: 8px 14px;
+  border-radius: 999px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: box-shadow 0.18s ease;
+}
+.search-box:focus-within { box-shadow: 0 8px 22px rgba(0,0,0,0.12); }
+.search-box input {
+  border: none;
+  outline: none;
+  background: transparent;
+  flex: 1;
+  font-size: 14px;
+  color: #2b2d42;
+  min-width: 0;
+}
+.autocomplete {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0; right: 0;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  list-style: none;
+  padding: 6px 0;
+  margin: 0;
+  z-index: 1400;
+  max-height: 260px;
+  overflow-y: auto;
+}
+.autocomplete li {
+  display: flex;
+  gap: 10px;
+  padding: 8px 12px;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.15s ease;
+}
+.autocomplete li:hover { background: #f3f6fb; }
+.autocomplete .title { font-weight: 600; }
+.autocomplete .meta { font-size: 12px; color: #8d99ae; }
+
+/* Right (actions + account) */
+.actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: background 0.18s ease, transform 0.1s ease;
+  color: #fff;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn.primary { background: #ef233c; }
+.btn.secondary { background: #8d99ae; }
+
+/* Account button */
+.icon-btn {
+  background: transparent;
+  border: none;
+  color: #edf2f4;
+  padding: 6px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.18s ease;
+}
+.icon-btn:hover { background: rgba(255,255,255,0.1); }
+
+/* Account menu with animation */
+.account { position: relative; }
+.account-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: #fff;
+  color: #2b2d42;
+  list-style: none;
+  margin: 0;
+  padding: 6px 0;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  z-index: 1500;
+  min-width: 160px;
+
+  opacity: 0;
+  transform: translateY(-6px);
+  animation: dropdownFade 0.2s ease forwards;
+}
+.account-menu li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.15s ease;
+}
+.account-menu li.account-user {
+  font-weight: 600;
+  border-bottom: 1px solid #e6e9ee;
+}
+.account-menu li:hover { background: #f6f8fb; }
+
+/* Animation */
+@keyframes dropdownFade {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .center { position: static; transform: none; flex: 1; }
+  .search-container { width: 100%; }
+  .user-pill { display: none; }
+}
+/* ... keep everything from before ... */
+.user-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; /* space between icon and username */
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid #fff;       /* ✅ White border */
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.user-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: #edf2f4;        /* ✅ Softer white on hover */
+}
+
+.user-btn i {
+  width: 20px;
+  height: 20px;
+  color: #edf2f4;
+}
+
+.user-btn .username {
+  font-size: 14px;
+  font-weight: 600;
+  color: #edf2f4;
+  white-space: nowrap;
+}
+
+/* On smaller screens, hide username to save space */
+@media (max-width: 768px) {
+  .user-btn .username {
+    display: none;
+  }
+}

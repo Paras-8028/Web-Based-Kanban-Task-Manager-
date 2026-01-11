@@ -1,0 +1,123 @@
+<section class="auth-wrapper">
+  <!-- Full-screen background image -->
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4hOIuyr3D12dL4z1xvXg3vtqlQi1TYfQWyg&s%22%20alt=%22Background%20Image%22%20class=%22background-image" alt="Background Image" class="background-image" />
+
+  <div class="auth-card" [class.signup]="mode === 'signup'">
+    <!-- Left Panel -->
+    <div class="side-panel">
+      <h2 *ngIf="mode === 'login'">Hello Again!</h2>
+      <h2 *ngIf="mode === 'signup'">Welcome!</h2>
+      <p *ngIf="mode === 'login'">Don’t have an account?</p>
+      <p *ngIf="mode === 'signup'">Already have an account?</p>
+      <button class="btn-outline" (click)="toggleMode()">
+        {{ mode === 'login' ? 'Sign Up' : 'Sign In' }}
+      </button>
+      <button class="btn-guest" (click)="guestLogin()">Continue as Guest</button>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="form-area animate-form">
+      <h3>{{ mode === 'login' ? 'Sign In' : 'Create Account' }}</h3>
+
+      <form (ngSubmit)="submit()" novalidate>
+        <!-- Identifier Fields -->
+        <ng-container *ngIf="mode === 'login'">
+          <div class="form-group">
+            <div class="label-row">
+              <label *ngIf="!useEmail" for="username">Username</label>
+              <label *ngIf="useEmail" for="email">Email</label>
+              <div class="switch-container">
+                <label class="switch-label">Use Email</label>
+                <label class="switch">
+                  <input type="checkbox" [(ngModel)]="useEmail" name="useEmail" />
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+            <input
+              *ngIf="!useEmail"
+              id="username"
+              type="text"
+              [(ngModel)]="username"
+              name="username"
+              required
+            />
+            <input
+              *ngIf="useEmail"
+              id="email"
+              type="email"
+              [(ngModel)]="email"
+              name="email"
+              required
+            />
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="mode === 'signup'">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input
+              id="username"
+              type="text"
+              [(ngModel)]="username"
+              name="username"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              id="email"
+              type="email"
+              [(ngModel)]="email"
+              name="email"
+              required
+            />
+          </div>
+        </ng-container>
+
+        <!-- Password -->
+        <div class="form-group password-group">
+          <label for="password">Password</label>
+          <div class="input-row">
+            <input
+              id="password"
+              [type]="showPassword ? 'text' : 'password'"
+              [(ngModel)]="password"
+              name="password"
+              required
+            />
+            <button type="button" class="toggle-pass" (click)="showPassword = !showPassword" tabindex="-1">
+              <mat-icon>{{ showPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <!-- Confirm Password (Only Signup) -->
+        <div class="form-group password-group" *ngIf="mode === 'signup'">
+          <label for="confirm">Confirm Password</label>
+          <div class="input-row">
+            <input
+              id="confirm"
+              [type]="showConfirm ? 'text' : 'password'"
+              [(ngModel)]="confirm"
+              name="confirm"
+              required
+            />
+            <button type="button" class="toggle-pass" (click)="showConfirm = !showConfirm" tabindex="-1">
+              <mat-icon>{{ showConfirm ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" [disabled]="loading">
+          <span *ngIf="!loading">{{ mode === 'login' ? 'Sign In' : 'Sign Up' }}</span>
+          <span *ngIf="loading" class="spinner"></span>
+        </button>
+
+        <p class="error" *ngIf="error">{{ error }}</p>
+      </form>
+    </div>
+  </div>
+</section>
